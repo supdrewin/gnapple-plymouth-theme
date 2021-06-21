@@ -1,0 +1,8 @@
+[Plymouth Theme]
+Name=simple-apple-plymouth
+Description=simple apple plymouth theme
+ModuleName=script
+
+[script]
+ImageDir=/usr/share/plymouth/themes/simple-apple-plymouth
+ScriptFile=/usr/share/plymouth/themes/simple-apple-plymouth/simple-apple-plymouth.script
