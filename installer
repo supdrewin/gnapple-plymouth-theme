@@ -10,7 +10,7 @@ if [[ $1 = -r ]]; then
   if [ -d $plymouth/simple-apple-plymouth ]; then
     echo "Wait for uninstalling complete..."
 	  if type plymouth-set-default-theme 2>/dev/null; then
-		  plymouth-set-default-theme -r
+		  plymouth-set-default-theme -r &>/dev/null
 	  else
 		  update-alternatives --remove default.plymouth $plymouth/simple-apple-plymouth/simple-apple-plymouth.plymouth &>/dev/null && update-initramfs -u &>/dev/null
   	fi
@@ -22,7 +22,7 @@ fi
 echo "Please wait until installation is complete..."
 cp -r simple-apple-plymouth $plymouth
 if type plymouth-set-default-theme 2>/dev/null; then
-	plymouth-set-default-theme -R simple-apple-plymouth 
+	plymouth-set-default-theme -R simple-apple-plymouth &>/dev/null
 else
 	update-alternatives --install $plymouth/default.plymouth default.plymouth $plymouth/simple-apple-plymouth/simple-apple-plymouth.plymouth 200 &>/dev/null && update-alternatives --set default.plymouth $plymouth/simple-apple-plymouth/simple-apple-plymouth.plymouth &>/dev/null && update-initramfs -u &>/dev/null
 fi

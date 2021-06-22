@@ -1,3 +1,7 @@
-*.swp
+*~
+
 *.bak
+*.swp
+
+dev/
 old/

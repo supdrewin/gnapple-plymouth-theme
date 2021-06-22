@@ -12,13 +12,13 @@ _But the [project](https://github.com/navisjayaseelan/apple-mac-plymouth) hasn't
 
     git clone https://github.com/supdrewin/simple-apple-plymouth.git
     cd simple-apple-plymouth
-    sudo bash installer
+    sudo ./installer
 
 ## **How to remove it?**
 
-    sudo bash installer -r
+    sudo ./installer -r
 
 ## Help to fix issues
 
 - Click [Here](https://github.com/supdrewin/simple-apple-plymouth/issues) to report issues
-- Click [Here](https://github.com/supdrewin/simple-apple-plymouth/pulls) to pull request
+- Click [Here](https://github.com/supdrewin/simple-apple-plymouth/pulls) to pull requests
