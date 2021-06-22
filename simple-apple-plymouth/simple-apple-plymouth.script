@@ -109,7 +109,7 @@ Plymouth.SetDisplayPasswordFunction(display_password_callback);
 
 if (Plymouth.GetMode() == "boot") {
 	progress_box.original_image = Image("progress_box.png");
-	progress_box.image = progress_box.original_image.Scale(scale(0.25), scale(0.02));
+	progress_box.image = progress_box.original_image.Scale(scale(0.26), scale(0.02));
 	progress_box.sprite = Sprite(progress_box.image);
 
 	progress_box.x = Window.GetX() + Window.GetWidth() / 2 - progress_box.image.GetWidth() / 2;
@@ -117,7 +117,7 @@ if (Plymouth.GetMode() == "boot") {
 	progress_box.sprite.SetPosition(progress_box.x, progress_box.y, 0);
 
 	progress_bar.original_image = Image("progress_bar.png");
-	progress_bar.image = progress_bar.original_image.Scale(scale(0.25), scale(0.01));
+	progress_bar.image = progress_bar.original_image.Scale(scale(0.24), scale(0.01));
 	progress_bar.sprite = Sprite();
 
 	progress_bar.x = Window.GetX() + Window.GetWidth() / 2 - progress_bar.image.GetWidth() / 2;
