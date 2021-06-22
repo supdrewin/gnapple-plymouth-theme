@@ -1,21 +1,21 @@
-//-----------------------------------[ Simple Apple Plymouth ]---------------------------------------//
+//---------------------------------[ Simple Apple Plymouth by Supdrewin ]-------------------------------------//
 
 Window.SetBackgroundTopColor(0, 0, 0);
 Window.SetBackgroundBottomColor(0, 0, 0);
 
-scale = Window.GetHeight() * 0.12;
+fun
+scale(dot)
+{ dot *= Window.GetHeight(); return dot; }
 
 logo.original_image = Image("logo.png");
-logo.image = logo.original_image.Scale(scale, scale);
+logo.image = logo.original_image.Scale(scale(0.14), scale(0.14));
+logo.sprite = Sprite(logo.image);
 
-logo.sprite = Sprite();
-logo.sprite.SetImage(logo.image);
 logo.sprite.SetOpacity(1);
-
 logo.sprite.SetX((Window.GetX() + Window.GetWidth() - logo.image.GetWidth()) / 2);
-logo.sprite.SetY((Window.GetY() + Window.GetHeight() - logo.image.GetHeight()) / 2);
+logo.sprite.SetY((Window.GetY() + Window.GetHeight() - logo.image.GetHeight()) * 0.45);
 
-//------------------------------------------- Dialogue ---------------------------------------------//
+//--------------------------------------------- Dialogue ----------------------------------------------------//
 
 status = "normal";
 
@@ -105,10 +105,11 @@ display_password_callback(prompt, bullets)
 Plymouth.SetDisplayNormalFunction(display_normal_callback);
 Plymouth.SetDisplayPasswordFunction(display_password_callback);
 
-//-------------------------------------------- Progress Bar -----------------------------------------//
+//-------------------------------------------- Progress Bar --------------------------------------------------//
 
 if (Plymouth.GetMode() == "boot") {
-	progress_box.image = Image("progress_box.png");
+	progress_box.original_image = Image("progress_box.png");
+	progress_box.image = progress_box.original_image.Scale(scale(0.25), scale(0.02));
 	progress_box.sprite = Sprite(progress_box.image);
 
 	progress_box.x = Window.GetX() + Window.GetWidth() / 2 - progress_box.image.GetWidth() / 2;
@@ -116,29 +117,30 @@ if (Plymouth.GetMode() == "boot") {
 	progress_box.sprite.SetPosition(progress_box.x, progress_box.y, 0);
 
 	progress_bar.original_image = Image("progress_bar.png");
+	progress_bar.image = progress_bar.original_image.Scale(scale(0.25), scale(0.01));
 	progress_bar.sprite = Sprite();
 
-	progress_bar.x = Window.GetX() + Window.GetWidth() / 2 - progress_bar.original_image.GetWidth() / 2;
-	progress_bar.y = Window.GetY() + Window.GetHeight() / 2 * 1.3 - progress_box.image.GetHeight() / 2 + (progress_box.image.GetHeight() - progress_bar.original_image.GetHeight()) / 2;
+	progress_bar.x = Window.GetX() + Window.GetWidth() / 2 - progress_bar.image.GetWidth() / 2;
+	progress_bar.y = Window.GetY() + Window.GetHeight() / 2 * 1.3 - progress_box.image.GetHeight() / 2 + (progress_box.image.GetHeight() - progress_bar.image.GetHeight()) / 2;
 	progress_bar.sprite.SetPosition(progress_bar.x, progress_bar.y, 1);
 
 	fun
 	progress_callback(duration, progress)
 	{
-		if (progress_bar.image.GetWidth() != Math.Int(progress_bar.original_image.GetWidth() * progress)) {
-			progress_bar.image = progress_bar.original_image.Scale(progress_bar.original_image.GetWidth(progress_bar.original_image) * progress, progress_bar.original_image.GetHeight());
-			progress_bar.sprite.SetImage(progress_bar.image);
+		if (progress_bar.next_image.GetWidth() != Math.Int(progress_bar.image.GetWidth() * progress)) {
+			progress_bar.next_image = progress_bar.image.Scale(progress_bar.image.GetWidth(progress_bar.image) * progress, progress_bar.image.GetHeight());
+			progress_bar.sprite.SetImage(progress_bar.next_image);
 		}
 	}
 
 	Plymouth.SetBootProgressFunction(progress_callback);
 }/* else {
-// TODO: adjust bar size, add circle animation while shutdown and so on.
+// TODO: add circle animation while shutdown and so on.
 } */
 
 // Plymouth.SetBootProgressFunction(progress_callback);
 
-//--------------------------------------------- Quit --------------------------------------------------//
+//----------------------------------------------- Quit ---------------------------------------------------//
 
 fun
 quit_callback()
@@ -148,7 +150,7 @@ quit_callback()
 
 Plymouth.SetQuitFunction(quit_callback);
 
-//------------------------------------------- Message -------------------------------------------------//
+//---------------------------------------------- Message -------------------------------------------------//
 
 message_sprites = [];
 message_sprite_count = 0;

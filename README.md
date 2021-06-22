@@ -18,6 +18,8 @@ _But the [project](https://github.com/navisjayaseelan/apple-mac-plymouth) hasn't
 
     sudo ./installer -r
 
+- _If you want to reinstall it, just type `sudo ./installer -R` !_
+
 ## Help to fix issues
 
 - Click [Here](https://github.com/supdrewin/simple-apple-plymouth/issues) to report issues
