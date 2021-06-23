@@ -108,7 +108,7 @@ Plymouth.SetDisplayPasswordFunction(display_password_callback);
 //-------------------------------------------- Progress Bar --------------------------------------------------//
 
 if (Plymouth.GetMode() == "boot") {
-	progress_box.original_image = Image("progress_box.png");
+	progress_box.original_image = Image("progress/progress_box.png");
 	progress_box.image = progress_box.original_image.Scale(scale(0.26), scale(0.02));
 	progress_box.sprite = Sprite(progress_box.image);
 
@@ -116,7 +116,7 @@ if (Plymouth.GetMode() == "boot") {
 	progress_box.y = Window.GetY() + Window.GetHeight() * 0.65 - progress_box.image.GetHeight() / 2;
 	progress_box.sprite.SetPosition(progress_box.x, progress_box.y, 0);
 
-	progress_bar.original_image = Image("progress_bar.png");
+	progress_bar.original_image = Image("progress/progress_bar.png");
 	progress_bar.image = progress_bar.original_image.Scale(scale(0.24), scale(0.01));
 	progress_bar.sprite = Sprite();
 
@@ -132,13 +132,24 @@ if (Plymouth.GetMode() == "boot") {
 			progress_bar.sprite.SetImage(progress_bar.next_image);
 		}
 	}
+} else {
+	spin.original_image = Image("spin/spin0.png");
+	spin.image = spin.original_image.Scale(scale(0.04), scale(0.04));
 
-	Plymouth.SetBootProgressFunction(progress_callback);
-}/* else {
-// TODO: add circle animation while shutdown and so on.
-} */
+	spin.sprite = Sprite();
+	spin.sprite.SetX((Window.GetX() + Window.GetWidth() - spin.image.GetWidth()) / 2);
+	spin.sprite.SetY((Window.GetY() + Window.GetHeight() - spin.image.GetHeight()) * 0.65);
 
-// Plymouth.SetBootProgressFunction(progress_callback);
+	fun
+	progress_callback(duration, progress)
+	{
+		spin.original_image = Image("spin/spin" + (Math.Int(200 * progress) % 12) + ".png");
+		spin.image = spin.original_image.Scale(scale(0.04), scale(0.04));
+		spin.sprite.SetImage(spin.image);
+	}
+}
+
+Plymouth.SetBootProgressFunction(progress_callback);
 
 //----------------------------------------------- Quit ---------------------------------------------------//
 
