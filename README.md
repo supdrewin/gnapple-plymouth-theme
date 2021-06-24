@@ -1,6 +1,7 @@
 # **Simple Apple Plymouth Theme**
 
-![screenshot](screenshot.png)
+![startup](preview/screenshot_startup.png)
+![shutdown](preview/screenshot_shutdown.png)
 
 ## Background Information
 
