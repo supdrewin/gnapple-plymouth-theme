@@ -1,27 +1,30 @@
 #!/bin/bash
 plymouth=/usr/share/plymouth/themes
+mytheme=$plymouth/simple-apple-plymouth
 getHelp() {
 	echo -e "usage:\n	sudo ./installer [ -r | -R ]\noptions:\n	-r	remove simple-apple-plymouth theme\n	-R	reinstall simple-apple-plymouth theme\n	no args to install theme" && exit 1
 }
 remove() {
-	if [ -d $plymouth/simple-apple-plymouth ]; then
+	if [ -d $mytheme ]; then
 		echo "Wait for uninstalling complete..."
 		if type plymouth-set-default-theme 2>/dev/null; then
 			plymouth-set-default-theme -r &>/dev/null
 		else
-			update-alternatives --remove default.plymouth $plymouth/simple-apple-plymouth/simple-apple-plymouth.plymouth &>/dev/null && update-initramfs -u &>/dev/null
+			update-alternatives --remove default.plymouth $mytheme/simple-apple-plymouth.plymouth &>/dev/null && update-initramfs -u &>/dev/null
 		fi
-		rm -rf $plymouth/simple-apple-plymouth && echo "Uninstall success!"
+		rm -rf $mytheme && echo "Uninstall success!"
 	else echo "The simple-apple-plymouth theme never installed!" && exit 1
 	fi
 }
 install() {
 	echo "Please wait until installation is complete..."
 	cp -r simple-apple-plymouth $plymouth
+	mv $mytheme/simple-apple-plymouth.js $mytheme/simple-apple-plymouth.script
+	sed -i 's/function/fun/g' $mytheme/simple-apple-plymouth.script
 	if type plymouth-set-default-theme 2>/dev/null; then
 		plymouth-set-default-theme -R simple-apple-plymouth &>/dev/null
 	else
-		update-alternatives --install $plymouth/default.plymouth default.plymouth $plymouth/simple-apple-plymouth/simple-apple-plymouth.plymouth 200 &>/dev/null && update-alternatives --set default.plymouth $plymouth/simple-apple-plymouth/simple-apple-plymouth.plymouth &>/dev/null && update-initramfs -u &>/dev/null
+		update-alternatives --install $plymouth/default.plymouth default.plymouth $mytheme/simple-apple-plymouth.plymouth 200 &>/dev/null && update-alternatives --set default.plymouth $mytheme/simple-apple-plymouth.plymouth &>/dev/null && update-initramfs -u &>/dev/null
 	fi
 	echo "The simple-apple-plymouth theme has been Configured." && exit 0
 }

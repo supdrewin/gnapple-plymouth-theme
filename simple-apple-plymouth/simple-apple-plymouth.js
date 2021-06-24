@@ -3,9 +3,10 @@
 Window.SetBackgroundTopColor(0, 0, 0);
 Window.SetBackgroundBottomColor(0, 0, 0);
 
-fun
-scale(dot)
-{ dot *= Window.GetHeight(); return dot; }
+function scale(dot) {
+	dot *= Window.GetHeight();
+	return dot;
+}
 
 logo.original_image = Image("logo.png");
 logo.image = logo.original_image.Scale(scale(0.14), scale(0.14));
@@ -19,9 +20,7 @@ logo.sprite.SetY((Window.GetY() + Window.GetHeight() - logo.image.GetHeight()) *
 
 status = "normal";
 
-fun
-dialog_setup()
-{
+function dialog_setup() {
 	local.box;
 	local.lock;
 	local.entry;
@@ -55,9 +54,7 @@ dialog_setup()
 	dialog_opacity(1);
 }
 
-fun
-dialog_opacity(opacity)
-{
+function dialog_opacity(opacity) {
 	dialog.box.sprite.SetOpacity(opacity);
 	dialog.lock.sprite.SetOpacity(opacity);
 	dialog.entry.sprite.SetOpacity(opacity);
@@ -67,18 +64,14 @@ dialog_opacity(opacity)
 	}
 }
 
-fun
-display_normal_callback()
-{
+function display_normal_callback() {
 	global.status = "normal";
 
 	if (global.dialog)
 		dialog_opacity(0);
 }
 
-fun
-display_password_callback(prompt, bullets)
-{
+function display_password_callback(prompt, bullets) {
 	global.status = "password";
 
 	if (!global.dialog)
@@ -109,7 +102,7 @@ Plymouth.SetDisplayPasswordFunction(display_password_callback);
 
 if (Plymouth.GetMode() == "boot") {
 	progress_box.original_image = Image("progress/progress_box.png");
-	progress_box.image = progress_box.original_image.Scale(scale(0.26), scale(0.02));
+	progress_box.image = progress_box.original_image.Scale(scale(0.24), scale(0.01));
 	progress_box.sprite = Sprite(progress_box.image);
 
 	progress_box.x = Window.GetX() + Window.GetWidth() / 2 - progress_box.image.GetWidth() / 2;
@@ -121,12 +114,10 @@ if (Plymouth.GetMode() == "boot") {
 	progress_bar.sprite = Sprite();
 
 	progress_bar.x = Window.GetX() + Window.GetWidth() / 2 - progress_bar.image.GetWidth() / 2;
-	progress_bar.y = Window.GetY() + Window.GetHeight() / 2 * 1.3 - progress_box.image.GetHeight() / 2 + (progress_box.image.GetHeight() - progress_bar.image.GetHeight()) / 2;
+	progress_bar.y = Window.GetY() + Window.GetHeight() * 0.65 - progress_box.image.GetHeight() / 2;
 	progress_bar.sprite.SetPosition(progress_bar.x, progress_bar.y, 1);
 
-	fun
-	progress_callback(duration, progress)
-	{
+	function progress_callback(duration, progress) {
 		if (progress_bar.next_image.GetWidth() != Math.Int(progress_bar.image.GetWidth() * progress)) {
 			progress_bar.next_image = progress_bar.image.Scale(progress_bar.image.GetWidth(progress_bar.image) * progress, progress_bar.image.GetHeight());
 			progress_bar.sprite.SetImage(progress_bar.next_image);
@@ -140,10 +131,8 @@ if (Plymouth.GetMode() == "boot") {
 	spin.sprite.SetX((Window.GetX() + Window.GetWidth() - spin.image.GetWidth()) / 2);
 	spin.sprite.SetY((Window.GetY() + Window.GetHeight() - spin.image.GetHeight()) * 0.65);
 
-	fun
-	progress_callback(time)
-	{
-		spin.original_image = Image("spin/spin" + Math.Int((time * 3) % 12) + ".png");
+	function progress_callback(time) {
+		spin.original_image = Image("spin/spin" + Math.Int((time * 6) % 12) + ".png");
 		spin.image = spin.original_image.Scale(scale(0.03), scale(0.03));
 		spin.sprite.SetImage(spin.image);
 	}
@@ -153,9 +142,7 @@ Plymouth.SetBootProgressFunction(progress_callback);
 
 //----------------------------------------------- Quit ---------------------------------------------------//
 
-fun
-quit_callback()
-{
+function quit_callback() {
 	logo.sprite.SetOpacity(1);
 }
 
@@ -167,9 +154,7 @@ message_sprites = [];
 message_sprite_count = 0;
 message_sprite_y = 10;
 
-fun
-display_message_callback(text)
-{
+function display_message_callback(text) {
 	my_image = Image.Text(text, 1, 1, 1);
 
 	message_sprites[message_sprite_count] = Sprite(my_image);
@@ -179,9 +164,7 @@ display_message_callback(text)
 	message_sprite_y += my_image.GetHeight();
 }
 
-fun
-hide_message_callback(text)
-{
+function hide_message_callback(text) {
 	for (i = 0; i < message_sprite_count; i++) {
 		if (message_sprites[i].text == text)
 			message_sprites[i] = NULL;
