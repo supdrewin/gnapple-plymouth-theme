@@ -1,44 +1,114 @@
 #!/bin/bash
-plymouth=/usr/share/plymouth/themes
-mytheme=$plymouth/simple-apple-plymouth
-getHelp() {
-	echo -e "usage:\n	sudo ./installer [ -r | -R ]\noptions:\n	-r	remove simple-apple-plymouth theme\n	-R	reinstall simple-apple-plymouth theme\n	no args to install theme" && exit 1
+
+my_theme_name=simple-apple-plymouth
+prefix_themes_path=/usr/share/plymouth/themes
+
+my_theme_path=$prefix_themes_path/$my_theme_name
+
+get_setup_help() {
+  sed -n '110,118p' $0
+  exit 1
 }
-remove() {
-	if [ -d $mytheme ]; then
-		echo "Wait for uninstalling complete..."
-		if type plymouth-set-default-theme 2>/dev/null; then
-			plymouth-set-default-theme -r &>/dev/null
-		else
-			update-alternatives --remove default.plymouth $mytheme/simple-apple-plymouth.plymouth &>/dev/null && update-initramfs -u &>/dev/null
-		fi
-		rm -rf $mytheme && echo "Uninstall success!"
-	else echo "The simple-apple-plymouth theme never installed!" && exit 1
-	fi
+
+create_new_initramfs() {
+  if type update-initramfs &>/dev/null; then
+    update-initramfs -u &>/dev/null  
+  elif type mkinitcpio &>/dev/null; then
+    mkinitcpio -P &>/dev/null
+  else
+    echo "Warning: Could not rebuild initramfs!"
+    echo "Maybe you should do this manually!"
+  fi
 }
-install() {
-	echo "Please wait until installation is complete..."
-	cp -r simple-apple-plymouth $plymouth
-	mv $mytheme/simple-apple-plymouth.js $mytheme/simple-apple-plymouth.script
-	sed -i 's/function/fun/g' $mytheme/simple-apple-plymouth.script
-	if type plymouth-set-default-theme 2>/dev/null; then
-		plymouth-set-default-theme -R simple-apple-plymouth &>/dev/null
-	else
-		update-alternatives --install $plymouth/default.plymouth default.plymouth $mytheme/simple-apple-plymouth.plymouth 200 &>/dev/null && update-alternatives --set default.plymouth $mytheme/simple-apple-plymouth.plymouth &>/dev/null && update-initramfs -u &>/dev/null
-	fi
-	echo "The simple-apple-plymouth theme has been Configured." && exit 0
+
+no_plymouth_exit() {
+  if [ ! -d $prefix_themes_path ]; then
+    echo "Error: Could not found plymouth!"
+    echo "Please install plymouth and try again!"
+
+    exit 1
+  fi
 }
-if ((UID != 0)); then
-	echo "Please run as root or using sudo command!" && exit 1
+
+not_root_exit() {
+  if ((UID != 0)); then
+    echo "Error: Permissions denied!"
+    echo "Please run as root or using sudo command!"
+
+    exit 1
+  fi
+}
+
+remove_plymouth_theme() {
+  if [ -d $my_theme_path ]; then
+    echo "Wait for uninstalling complete..."
+
+    if type plymouth-set-default-theme &>/dev/null; then
+      plymouth-set-default-theme -r &>/dev/null
+    else
+      update-alternatives --remove default.plymouth \
+        $my_theme_path/$my_theme_name.plymouth &>/dev/null
+      create_new_initramfs
+    fi
+
+    rm -rf $my_theme_path
+    echo "Uninstall success!"
+  else
+    echo "The simple-apple-plymouth theme never installed!"
+    exit 1
+  fi
+}
+
+install_plymouth_theme() {
+  echo "Please wait until installation is complete..."
+
+  cp -r $my_theme_name $prefix_themes_path
+  mv $my_theme_path/$my_theme_name.js $my_theme_path/$my_theme_name.script
+  sed -i 's/function/fun/g' $my_theme_path/$my_theme_name.script
+
+  if type plymouth-set-default-theme &>/dev/null; then
+    plymouth-set-default-theme -R $my_theme_name &>/dev/null
+  else
+    update-alternatives --install $prefix_themes_path/default.plymouth default.plymouth \
+      $my_theme_path/$my_theme_name.plymouth 200 &>/dev/null
+    update-alternatives --set default.plymouth \
+      $my_theme_path/$my_theme_name.plymouth &>/dev/null
+
+    create_new_initramfs
+  fi
+
+  echo "The $my_theme_name theme has been Configured."
+  exit 0
+}
+
+no_plymouth_exit
+not_root_exit
+
+if [[ $1 ]]; then
+  case $1 in
+    -r*)
+      remove_plymouth_theme
+      ;;
+    -R*)
+      remove_plymouth_theme
+      install_plymouth_theme
+      ;;
+    *)
+      get_setup_help
+      ;;
+  esac
+else
+  install_plymouth_theme
 fi
-if [ ! -d $plymouth ]; then
-	echo "Please install plymouth!" && exit 1
-fi
-if [[ $1 ]];then
-	case $1 in
-		-r*) remove && exit 0 ;;
-		-R*) remove && install ;;
-		*) getHelp ;;
-	esac
-else install
-fi
+
+exit 0
+
+usage:
+  sudo ./installer [ -r | -R ]
+
+options:
+  -r	remove simple-apple-plymouth theme
+  -R	reinstall simple-apple-plymouth theme
+
+  no args to install theme
+  wrong to show this message
