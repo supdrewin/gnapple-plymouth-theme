@@ -1,4 +1,4 @@
-# **Simple Apple Plymouth Theme**
+# **GnApple Plymouth Theme**
 
 ![startup](preview/screenshot_startup.png)
 ![shutdown](preview/screenshot_shutdown.png)
@@ -11,8 +11,8 @@ _But the [project](https://github.com/navisjayaseelan/apple-mac-plymouth) hasn't
 
 ## **How to install it?**
 
-    git clone https://github.com/supdrewin/simple-apple-plymouth.git
-    cd simple-apple-plymouth
+    git clone https://github.com/supdrewin/gnapple-plymouth-theme.git
+    cd gnapple-plymouth-theme
     sudo ./installer
 
 ## **How to remove it?**
@@ -23,5 +23,5 @@ _But the [project](https://github.com/navisjayaseelan/apple-mac-plymouth) hasn't
 
 ## Help to fix issues
 
-- Click [Here](https://github.com/supdrewin/simple-apple-plymouth/issues) to report issues
-- Click [Here](https://github.com/supdrewin/simple-apple-plymouth/pulls) to pull requests
+- Click [Here](https://github.com/supdrewin/gnapple-plymouth-theme/issues) to report issues
+- Click [Here](https://github.com/supdrewin/gnapple-plymouth-theme/pulls) to pull requests

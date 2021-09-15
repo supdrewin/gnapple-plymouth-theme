@@ -1,0 +1,8 @@
+[Plymouth Theme]
+Name=gnapple-plymouth-theme
+Description=GnApple Plymouth Theme
+ModuleName=script
+
+[script]
+ImageDir=/usr/share/plymouth/themes/gnapple-plymouth-theme
+ScriptFile=/usr/share/plymouth/themes/gnapple-plymouth-theme/gnapple-plymouth-theme.script

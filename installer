@@ -1,6 +1,6 @@
 #!/bin/bash
 
-my_theme_name=simple-apple-plymouth
+my_theme_name=gnapple-plymouth-theme
 prefix_themes_path=/usr/share/plymouth/themes
 
 my_theme_path=$prefix_themes_path/$my_theme_name
@@ -54,7 +54,7 @@ remove_plymouth_theme() {
     rm -rf $my_theme_path
     echo "Uninstall success!"
   else
-    echo "The simple-apple-plymouth theme never installed!"
+    echo "The gnapple-plymouth-theme theme never installed!"
     exit 1
   fi
 }
@@ -107,8 +107,8 @@ usage:
   sudo ./installer [ -r | -R ]
 
 options:
-  -r	remove simple-apple-plymouth theme
-  -R	reinstall simple-apple-plymouth theme
+  -r	remove GnApple Plymouth Theme
+  -R	reinstall GnApple Plymouth Theme
 
   no args to install theme
   wrong to show this message
