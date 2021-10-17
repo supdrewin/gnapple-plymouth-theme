@@ -54,7 +54,7 @@ remove_plymouth_theme() {
     rm -rf $my_theme_path
     echo "Uninstall success!"
   else
-    echo "The gnapple-plymouth-theme theme never installed!"
+    echo "The $my_theme_name theme never installed!"
     exit 1
   fi
 }

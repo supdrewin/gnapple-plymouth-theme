@@ -5,23 +5,31 @@
 
 ## Background Information
 
-_The original project was created by [Navis Michael Bearly](https://github.com/navisjayaseelan)_
-
-_But the [project](https://github.com/navisjayaseelan/apple-mac-plymouth) hasn't been maintained for a long time._
+_This theme is inspired by
+[apple mac plymouth](https://github.com/navisjayaseelan/apple-mac-plymouth),
+but has many improvements_
 
 ## **How to install it?**
 
-    git clone https://github.com/supdrewin/gnapple-plymouth-theme.git
-    cd gnapple-plymouth-theme
-    sudo ./installer
+``` shell
+~ > git clone https://github.com/supdrewin/gnapple-plymouth-theme.git
+~ > cd gnapple-plymouth-theme
+~/gnapple-plymouth-theme > sudo ./installer
+```
 
 ## **How to remove it?**
 
-    sudo ./installer -r
+``` shell
+~/gnapple-plymouth-theme > sudo ./installer -r
+```
 
 - _If you want to reinstall it, just type `sudo ./installer -R` !_
 
 ## Help to fix issues
 
-- Click [Here](https://github.com/supdrewin/gnapple-plymouth-theme/issues) to report issues
-- Click [Here](https://github.com/supdrewin/gnapple-plymouth-theme/pulls) to pull requests
+- Click
+  [Here](https://github.com/supdrewin/gnapple-plymouth-theme/issues)
+  to report issues
+- Click
+  [Here](https://github.com/supdrewin/gnapple-plymouth-theme/pulls)
+  to pull requests

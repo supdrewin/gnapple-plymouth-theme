@@ -1,4 +1,4 @@
-//---------------------------------[ Simple Apple Plymouth by Supdrewin ]-------------------------------------//
+//---------------------------------[ GnApple Plymouth Theme by Supdrewin ]-------------------------------------//
 
 Window.SetBackgroundTopColor(0, 0, 0);
 Window.SetBackgroundBottomColor(0, 0, 0);
